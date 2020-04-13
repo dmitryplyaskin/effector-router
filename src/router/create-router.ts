@@ -1,9 +1,5 @@
-import { createStore } from 'effector'
-
-const initLocation = () => {
-	const { search, hash, pathname } = window.location
-	return { search, hash, pathname }
-}
+import { createStore, combine } from 'effector'
+import { initLocation } from './navigation'
 
 interface Location {
 	search: string
@@ -14,6 +10,21 @@ const $location = createStore<Location>(initLocation())
 
 $location.watch(console.log)
 
-const createRouter = () => {}
+const createRouter = () => {
+	const createRoute = (path: string) => {
+		const $route = createStore(path)
+		const $isMatch = combine(
+			{ route: $route, location: $location },
+			({ route, location }) => location.pathname === route
+		)
+
+		return {
+			isMatch: $isMatch,
+		}
+	}
+	return {
+		createRoute,
+	}
+}
 
 export { createRouter }
