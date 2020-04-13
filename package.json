@@ -10,5 +10,8 @@
 	},
 	"scripts": {
 		"start": "parcel src/playground/index.html"
+	},
+	"dependencies": {
+		"query-string": "^6.12.1"
 	}
 }
