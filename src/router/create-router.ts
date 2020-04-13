@@ -1,1 +1,3 @@
-const createRouter = () => {}
+const createRouter = () => {
+	console.log(window.history)
+}
